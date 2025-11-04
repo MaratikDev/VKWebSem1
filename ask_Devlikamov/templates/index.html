@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Главная — AskPupkin{% endblock %}
+
+{% block content %}
+  <h2 class="text-start mb-4">New questions</h2>
+  <a href="#" class="mb-4 d-inline-block">Hot questions</a>
+
+  <div class="row">
+    <!-- Левая колонка -->
+    <div class="col-md-7 m-5">
+      <div class="row row-cols-1 row-cols-md-1 g-5" style="margin-left: -300px; min-height: 1000px">
+        {# Здесь остаётся весь HTML карточек вопросов, без изменений #}
+      </div>
+    </div>
+
+    <!-- Правая колонка -->
+    <div class="col-md-4">
+      {% include "includes/sidebar.html" %}
+    </div>
+  </div>
+
+  {% include "includes/pagination.html" %}
+{% endblock %}
