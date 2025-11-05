@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}{{ question.title }} — AskPupkin{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <!-- Левая колонка -->
+    <div class="col-md-7 m-5">
+      <div class="card shadow-sm p-4 mb-5">
+        <div class="d-flex align-items-start mb-3">
+          <img src="" width="80" height="80" class="me-3 rounded">
+          <div>
+            <h3 class="fw-semibold mb-2">{{ question.title }}</h3>
+            <p class="fs-4">{{ question.text }}</p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center mb-3">
+          <div class="border rounded p-2 text-center me-2" style="width: 40px;">{{ question.rating }}</div>
+          <div class="d-flex flex-column">
+            <button class="btn btn-sm btn-outline-success mb-1 p-1">&#9650;</button>
+            <button class="btn btn-sm btn-outline-danger p-1">&#9660;</button>
+          </div>
+          <p class="fs-4 ms-3">
+            Tags:
+            {% for tag in question.tags %}
+              <a href="/tag/{{ tag }}" class="text-decoration-none fs-4">{{ tag }}</a>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+
+      <h4 class="mb-4">Ответы ({{ question.answers|length }})</h4>
+      {% for ans in question.answers %}
+        <div class="card shadow-sm p-4 mb-3">
+          <div class="d-flex">
+            <img src="" width="60" height="60" class="rounded me-3">
+            <p class="fs-5">{{ ans.text }}</p>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted">Пока нет ответов. Будь первым!</p>
+      {% endfor %}
+
+      <h4 class="mt-5 mb-3">Добавить ответ</h4>
+      <form>
+        <div class="mb-3">
+          <textarea rows="4" class="form-control form-control-lg" placeholder="Введите ваш ответ..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-success btn-lg px-5">Отправить</button>
+      </form>
+    </div>
+
+    <!-- Правая колонка -->
+    <div class="col-md-4">
+      {% include "includes/sidebar.html" %}
+    </div>
+  </div>
+{% endblock %}
