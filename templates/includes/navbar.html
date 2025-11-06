@@ -6,15 +6,15 @@
       <input class="form-control me-2" type="search" placeholder="Search...">
     </form>
 
-    <a href="/ask/" class="btn btn-success btn-lg me-4">Ask</a>
+    <a href="{% url 'ask' %}" class="btn btn-success btn-lg me-4">Ask</a>
 
     <div class="d-flex align-items-center">
-      <img src="images/gojo.jpg" width="50" height="50" class="rounded-circle me-3">
+      <img src="" width="50" height="50" class="rounded-circle me-3">
       <div class="d-flex flex-column text-end">
         <span class="fw-semibold">Marat Devlikamov</span>
         <div class="small">
-          <a href="/settings/" class="text-decoration-none text-secondary me-2">Settings</a>
-          <a href="/login/" class="text-decoration-none text-danger">Logout</a>
+          <a href="{% url 'settings' %}" class="text-decoration-none text-secondary me-2">Settings</a>
+          <a href="{% url 'login' %}" class="text-decoration-none text-danger">Logout</a>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@
           <p class="fs-4 ms-3">
             Tags:
             {% for tag in question.tags %}
-              <a href="/tag/{{ tag }}" class="text-decoration-none fs-4">{{ tag }}</a>
+              <a href="{% url 'tag' tag %}" class="text-decoration-none fs-4">{{ tag }}</a>
             {% endfor %}
           </p>
         </div>

@@ -14,9 +14,9 @@
           <div class="col">
             <div class="card h-60 shadow-sm p-3">
               <div class="d-flex align-items-start mb-3">
-                <img src="images/mob.jpg" width="70" height="70" class="me-3 rounded">
+                <img src="" width="70" height="70" class="me-3 rounded">
                 <div class="card-body">
-                  <a href="/question/{{ q.id }}" class="fs-1 fw-semibold text-decoration-none d-block mb-1">{{ q.title }}</a>
+                  <a href="{% url 'question' q.id %}" class="fs-1 fw-semibold text-decoration-none d-block mb-1">{{ q.title }}</a>
                   <p class="m-2 fs-4 text">{{ q.text }}</p>
                 </div>
               </div>
@@ -29,13 +29,13 @@
                   </div>
                 </div>
                 <div class="card-body m-3">
-                  <a href="/question/{{ q.id }}" class="fs-3 text">answers(3)</a>
+                  <a href="{% url 'question' q.id %}" class="fs-3 text">answers</a>
                 </div>
                 <div class="card-body m-3">
                   <p class="text fs-3">
                     Tags:
                     {% for tag in q.tags %}
-                      <a href="/tag/{{ tag }}" class="fs-3 text">{{ tag }}</a>
+                      <a href="{% url 'tag' tag %}" class="fs-3 text">{{ tag }}</a>
                     {% endfor %}
                   </p>
                 </div>

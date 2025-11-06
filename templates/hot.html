@@ -14,7 +14,9 @@
               <div class="d-flex align-items-start mb-3">
                 <img src="" width="70" height="70" class="me-3 rounded">
                 <div class="card-body">
-                  <a href="/question/{{ q.id }}" class="fs-1 fw-semibold text-decoration-none d-block mb-1">{{ q.title }}</a>
+                  <a href="{% url 'question' q.id %}" class="fs-1 fw-semibold text-decoration-none d-block mb-1">
+  {{ q.title }}
+</a>
                   <p class="m-2 fs-4 text">{{ q.text }}</p>
                 </div>
               </div>

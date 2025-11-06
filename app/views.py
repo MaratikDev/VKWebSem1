@@ -49,20 +49,20 @@ def hot(request):
     return render(request, 'hot.html', context)
 
 
-def tag(request, tag_name):
+def tag(request, tag):
     questions = []
     for i in range(1, 30):
         questions.append({
             'id': i,
             'title': f'Вопрос {i}',
-            'text': f'тема {tag_name}, вопрос номер {i}.',
+            'text': f'тема {tag}, вопрос номер {i}.',
             'rating': i,
-            'tags': [tag_name, 'Наука']
+            'tags': [tag, 'Наука']
         })
 
     page = paginate(questions, request)
     context = {
-        'tag_name': tag_name,
+        'tag_name': tag,
         'questions': page.object_list,
         'page': page
     }
