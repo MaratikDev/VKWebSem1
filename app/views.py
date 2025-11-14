@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-def paginate(objects_list, request, per_page=10):
+from .models import Question
+
+
+def paginate(objects_list, request, per_page=20):
     paginator = Paginator(objects_list, per_page)
     page_num = request.GET.get('page', 1)
     try:
@@ -13,15 +16,7 @@ def paginate(objects_list, request, per_page=10):
     return page
 
 def index(request):
-    questions = []
-    for i in range(1, 31):
-        questions.append({
-            'id': i,
-            'title': f'Как стать сигмой? {i}',
-            'text': f',бла бла бла бла...хочу стать сигмой {i}.',
-            'rating': i,
-            'tags': ['Общество', 'Наука', 'Культура']
-        })
+    questions = Question.objects.new()
     page = paginate(questions, request)
     context = {
         'questions': page.object_list,
@@ -32,15 +27,7 @@ def index(request):
 
 def hot(request):
     # создаём те же вопросы, но отсортированные по рейтингу
-    questions = []
-    for i in range(1, 31):
-        questions.append({
-            'id': i,
-            'title': f'Горячий вопрос {i}',
-            'text': f' горячий вопрос текст {i}.',
-            'rating': i,
-            'tags': ['Новости', 'Спорт']
-        })
+    questions = Question.objects.best()
     page = paginate(questions, request)
     context = {
         'questions': page.object_list,
@@ -50,16 +37,7 @@ def hot(request):
 
 
 def tag(request, tag):
-    questions = []
-    for i in range(1, 30):
-        questions.append({
-            'id': i,
-            'title': f'Вопрос {i}',
-            'text': f'тема {tag}, вопрос номер {i}.',
-            'rating': i,
-            'tags': [tag, 'Наука']
-        })
-
+    questions = Question.objects.tag(tag)
     page = paginate(questions, request)
     context = {
         'tag_name': tag,
@@ -79,19 +57,7 @@ def login(request):
 
 def question(request, question_id):
     # "рыба" — один вопрос с ответами
-    question = {
-        'id': question_id,
-        'title': f'Как стать сигмой? #{question_id}',
-        'text': 'бла бла бла бла... как стать сигмой',
-        'rating': 15,
-        'tags': ['Общество', 'Спорт'],
-        'answers': [
-            {'author': 'Мария', 'text': 'Ответ'},
-            {'author': 'Павел', 'text': 'Более крутой ответ'},
-            {'author': 'Алексей', 'text': 'Ты Годжо сатору потому что ты сигма, или ты сигма, потому что ты Годжо Сатору?'},
-        ]
-    }
-
+    question = get_object_or_404(Question, pk=question_id)
     context = {'question': question}
     return render(request, 'question.html', context)
 

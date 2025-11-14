@@ -1,0 +1,31 @@
+<div class="col">
+  <div class="card h-60 shadow-sm p-3">
+    <div class="d-flex align-items-start mb-3">
+      <img src="" width="70" height="70" class="me-3 rounded">
+      <div class="card-body">
+        <a href="{% url 'question' question.id %}" class="fs-1 fw-semibold text-decoration-none d-block mb-1">{{ question.title }}</a>
+        <p class="m-2 fs-4 text">{{ question.text }}</p>
+      </div>
+    </div>
+    <div class="d-flex align-items-start">
+      <div class="d-flex align-items-center">
+        <div class="border rounded p-2 text-center me-2" style="width: 40px;">{{ question.rating }}</div>
+        <div class="d-flex flex-column">
+          <button class="btn btn-sm btn-outline-success mb-1 p-1">&#9650;</button>
+          <button class="btn btn-sm btn-outline-danger p-1">&#9660;</button>
+        </div>
+      </div>
+      <div class="card-body m-3">
+        <a href="{% url 'question' question.id %}" class="fs-3 text">answers</a>
+      </div>
+      <div class="card-body m-3">
+        <p class="text fs-3">
+          Tags:
+          {% for tag in question.tags.all %}
+            <a href="{% url 'tag' tag.name %}" class="fs-3 text">{{ tag.name }}</a>
+          {% endfor %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

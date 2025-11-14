@@ -1,27 +1,49 @@
 <nav class="mt-4">
   <ul class="pagination justify-content-center">
-    {% if page.has_previous %}
+
+    {# Первая страница #}
+    {% if page.number > 1 %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page.previous_page_number }}">Предыдущая</a>
+        <a class="page-link" href="?page=1">1</a>
       </li>
-    {% else %}
-      <li class="page-item disabled"><a class="page-link">Предыдущая</a></li>
     {% endif %}
 
-    {% for num in page.paginator.page_range %}
-      {% if page.number == num %}
-        <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-      {% else %}
-        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-      {% endif %}
-    {% endfor %}
-
-    {% if page.has_next %}
-      <li class="page-item">
-        <a class="page-link" href="?page={{ page.next_page_number }}">Следующая</a>
-      </li>
-    {% else %}
-      <li class="page-item disabled"><a class="page-link">Следующая</a></li>
+    {# Многоточие перед текущей страницей, если разрыв > 2 #}
+    {% if page.number > 3 %}
+      <li class="page-item disabled"><span class="page-link">…</span></li>
     {% endif %}
+
+    {# Страница перед текущей #}
+    {% if page.number|add:'-1' > 1 %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page.number|add:'-1' }}">{{ page.number|add:'-1' }}</a>
+      </li>
+    {% endif %}
+
+    {# Текущая страница #}
+    <li class="page-item active">
+      <a class="page-link">{{ page.number }}</a>
+    </li>
+
+    {# Страница после текущей #}
+    {% if page.number|add:'1' < page.paginator.num_pages %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page.number|add:'1' }}">{{ page.number|add:'1' }}</a>
+      </li>
+    {% endif %}
+
+    {# Многоточие после текущей страницы, если разрыв > 2 #}
+    {% if page.number < page.paginator.num_pages|add:'-2' %}
+      <li class="page-item disabled"><span class="page-link">…</span></li>
+    {% endif %}
+
+    {# Последняя страница #}
+    {% if page.number < page.paginator.num_pages %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page.paginator.num_pages }}">{{ page.paginator.num_pages }}</a>
+      </li>
+    {% endif %}
+
+
   </ul>
 </nav>
